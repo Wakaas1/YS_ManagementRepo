@@ -1,0 +1,16 @@
+﻿@using HtmlHelpers.BeginCollectionItemCore;
+@using YSManagmentSystem.Domain.User;
+@model YSManagmentSystem.Domain.User.RoleEdit
+
+@using (Html.BeginCollectionItem("RoleEdit"))
+{
+    <th>
+        <td>
+            @Html.DisplayFor(i => Model.RoleName)
+        </td>
+        <td>
+            @Html.DisplayFor(i => Model.Checked)
+        </td>
+    </th>
+    @Html.HiddenFor(i => Model.RoleId)
+}

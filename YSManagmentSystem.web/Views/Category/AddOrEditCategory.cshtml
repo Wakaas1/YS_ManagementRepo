@@ -1,0 +1,44 @@
+﻿@model YSManagmentSystem.Domain.Product.Category
+
+@{
+
+    ViewData["Title"] = "Index";
+    Layout = null;
+}
+
+<h1>Add OR Edit Category</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="@Url.Content("/Category/AddOrEditCategory")" id="step-form-horizontal" class="step-form-horizontal" method="post">
+                <input type="hidden" asp-for="Id" />
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="text" asp-for="CategoryName" class="form-control" placeholder="CategoryName" required>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input type="text" asp-for="Description" class="form-control" placeholder="Description" required>
+                        </div>
+                    </div>
+                   
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="add" style="background-color:darkgreen;">Submit</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>validateEmpForm()</script>
+
+
