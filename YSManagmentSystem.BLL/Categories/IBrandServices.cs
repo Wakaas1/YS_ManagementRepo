@@ -1,4 +1,5 @@
 ﻿using YSManagmentSystem.Domain.Product;
+using YSManagmentSystem.web.Models.DataTable;
 
 namespace YSManagmentSystem.BLL.Categories
 {
@@ -9,5 +10,6 @@ namespace YSManagmentSystem.BLL.Categories
         
         Brand GetBrandByID(int Id);
         int UpdateBrand(Brand model);
+        Task<DataTableResponse<BrandDetail>> GetAllBrandDT(DTReq request);
     }
 }

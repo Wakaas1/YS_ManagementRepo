@@ -17,6 +17,22 @@
     {
       "library": "bootstrap@5.2.3",
       "destination": "wwwroot/bootstrap/"
+    },
+    {
+      "library": "limonte-sweetalert2@11.6.15",
+      "destination": "wwwroot/limonte-sweetalert2/"
+    },
+    {
+      "library": "sweetalert@2.1.2",
+      "destination": "wwwroot/sweetalert/"
+    },
+    {
+      "library": "bootstrap-sweetalert@1.0.1",
+      "destination": "wwwroot/bootstrap-sweetalert/"
+    },
+    {
+      "library": "popper.js@2.11.6",
+      "destination": "wwwroot/popper.js/"
     }
   ]
 }

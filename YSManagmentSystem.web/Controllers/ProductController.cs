@@ -81,8 +81,7 @@ namespace YSManagmentSystem.web.Controllers
             return Json(new { status = Status, value = Value });
         }
 
-        public IActionResult Detail()
-        { return View(); }
+        
         [HttpGet]
         public IActionResult DetailProduct(int? id)
         {

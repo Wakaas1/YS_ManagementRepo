@@ -6,6 +6,7 @@ using YSManagmentSystem.BLL.Categories;
 using YSManagmentSystem.BLL.User;
 using YSManagmentSystem.BLL.UserRole;
 using YSManagmentSystem.DAL.Data;
+using YSManagmentSystem.BLL.OrderService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ builder.Services.AddScoped<ISupplierServices, SupplierServices>();
 builder.Services.AddScoped<IBrandServices, BrandServices>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 builder.Services.AddScoped<ILocationServices, LocationServices>();
+builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<ICustomerServices, CustomerServices>();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(x => x.LoginPath = "/User/Login");
 builder.Services.ConfigureApplicationCookie(options =>

@@ -1,5 +1,7 @@
 ﻿using Dapper;
 using YSManagmentSystem.Domain.DataTableUser;
+using YSManagmentSystem.Domain.Items;
+using YSManagmentSystem.Domain.Order;
 using YSManagmentSystem.Domain.Product;
 using YSManagmentSystem.web.Models.DataTable;
 
@@ -18,5 +20,14 @@ namespace YSManagmentSystem.DAL.Data
         Task<ResultPro> ReturnProductListMultiple(string procrdureName, DynamicParameters param = null);
         Task<Resultsup> ReturnSupplierListMultiple(string procrdureName, DynamicParameters param = null);
         Task<ResultCat> ReturnCategoryListMultiple(string procrdureName, DynamicParameters param = null);
+        Task<Resultbrand> ReturnBrandListMultiple(string procrdureName, DynamicParameters param = null);
+        Task<ResultLoc> ReturnLocationListMultiple(string procrdureName, DynamicParameters param = null);
+        Task<ResultItem> ReturnItemListMultiple(string procrdureName, DynamicParameters param = null);
+        Task<ResultOrder> ReturnOrderListMultiple(string procrdureName, DynamicParameters param = null);
+        Task<ResultOrderItem> ReturnOrderItemListMultiple(string procrdureName, DynamicParameters param = null);
+        Task<ResultCustomer> ReturnCustomerListMultiple(string procrdureName, DynamicParameters param = null);
+
+
+
     }
 }

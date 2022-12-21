@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div style="width:90%; margin:0 auto" class="tablecontainer">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Item/AddOrEditItem" data-type='Add' style="margin-top:20px;margin-bottom:10px;background-color:darkgreen;"> <i class="fa fa-plus"></i> Add Item </button>
+        <table id="myTableItem" class="table table-bordered" style="text-align:center" width="100%">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Product Name</th>
+                    <th>Brand Name</th>
+                    <th>Supplier Name</th>
+                    <th>Order Name</th>
+                    <th>Stock Keeping Unit</th>
+                    <th>Market Rate Price</th>
+                    <th>Discount</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Sold</th>
+                    <th>Availablity</th>
+                    <th>Defective</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+
+
+
+<!--Modal-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="itemPopup">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/itemdt.js"></script>
+}

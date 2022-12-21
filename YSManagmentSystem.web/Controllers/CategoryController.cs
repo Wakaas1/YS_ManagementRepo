@@ -154,13 +154,13 @@ namespace YSManagmentSystem.web.Controllers
             return RedirectToAction("Index");
         }
         [HttpPost]
-        public IActionResult DeleteCategory(int id, Product pro)
+        public IActionResult DeleteCategory(int id, Category cat)
         {
             if (_category.DeleteCategory(id) > 0)
             {
                 return RedirectToAction("Index");
             }
-            return View(pro);
+            return View(cat);
         }
 
         //Data Table, Searching, sorting, Paging, Total Count,Filtering

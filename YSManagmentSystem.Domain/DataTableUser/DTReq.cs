@@ -10,6 +10,9 @@
         public int CategoryId { get; set; }
         public int LocationId { get; set; }
         public int BrandId { get; set; }
+        public int productId { get; set; }
+        public int supplierId { get; set; }
+        public int orderId { get; set; }
        
     }
 }

@@ -1,4 +1,5 @@
 ﻿using YSManagmentSystem.Domain.Product;
+using YSManagmentSystem.web.Models.DataTable;
 
 namespace YSManagmentSystem.BLL.Categories
 {
@@ -7,7 +8,9 @@ namespace YSManagmentSystem.BLL.Categories
         int AddLocation(Locations model);
         int DeleteLocation(int id);
         
-        Locations GetBrandByID(int Id);
-        int UpdateBrand(Locations model);
+        Locations GetLocationByID(int Id);
+        int UpdateLocation(Locations model);
+        Task<DataTableResponse<LocationDetail>> GetAllLocationDT(DTReq request);
+
     }
 }

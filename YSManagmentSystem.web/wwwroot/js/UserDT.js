@@ -30,7 +30,7 @@
                 { data: "roles_list", "autoWidth": true },
                 {
                     data: "id", "render": function (data, type, row) {
-                        return '<a class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" href="" data-url="/Role/EditRole?uId=' + data + '" > <i class="fa fa-edit"></i></a>  <a href="#" class="btn btn-danger" onclick=DelUser("' + data + '")><i class="fa fa-trash"></i></a>'
+                        return '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Role/EditRole?uId=' + data + '" > <i class="fa fa-edit"></i></button> <a href="#" class="btn btn-danger" onclick=DelUser("' + data + '")><i class="fa fa-trash"></i></a>'
                     },
                 }
             ],
@@ -155,20 +155,64 @@ function validateEmpForm() {
     });
 }
 function DelUser(id) {
-    if (confirm("Are you sure you want to delete ...?")) {
-        Delete(id);
-    } else {
-        return false;
-    }
-}
-function Delete(id) {
-    var url = '@Url.Content("~/")' + "User/DeleteUser";
-    $.post(url, { ID: id }, function (data) {
-        if (data) {
-            oTable = $('#myTableUser').DataTable();
-            oTable.draw();
-        } else {
-            alert("Something Went Wrong!");
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Content("~/")' + "User/DeleteUser" / + id,
+                    /* url: '@Url.Action("DeleteLocation", "Location")/' + id,*/
+                    success: function (data) {
+                        dataTable.ajax.reload();
+                    }
+                });
+            }
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your Data has been deleted.',
+                'success'
+            )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary data is safe :)',
+                'error'
+            )
         }
     });
 }
+
+
+//function DelUser(id) {
+//    if (confirm("Are you sure you want to delete ...?")) {
+//        Delete(id);
+//    } else {
+//        return false;
+//    }
+//}
+//function Delete(id) {
+//    var url = '@Url.Content("~/")' + "User/DeleteUser";
+//    $.post(url, { ID: id }, function (data) {
+//        if (data) {
+//            oTable = $('#myTableUser').DataTable();
+//            oTable.draw();
+//        } else {
+//            alert("Something Went Wrong!");
+//        }
+//    });
+//}

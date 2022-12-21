@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using YSManagmentSystem.DAL.Data;
 using YSManagmentSystem.Domain.Product;
+using YSManagmentSystem.web.Models.DataTable;
 
 namespace YSManagmentSystem.BLL.Categories
 {
@@ -34,7 +35,7 @@ namespace YSManagmentSystem.BLL.Categories
         public int UpdateBrand(Brand model)
         {
             Dapper.DynamicParameters param = new DynamicParameters();
-            param.Add("@Id", -1, dbType: DbType.Int32, direction: ParameterDirection.Output);
+            param.Add("@Id", model.Id);
             param.Add("@BrandName", model.BrandName);
             param.Add("@Description", model.Description);
 
@@ -60,6 +61,26 @@ namespace YSManagmentSystem.BLL.Categories
             var bnd = _dapper.CreateUserReturnInt("dbo.DeleteBrand", param);
 
             return bnd;
+        }
+
+        public async Task<DataTableResponse<BrandDetail>> GetAllBrandDT(DTReq request)
+        {
+            Dapper.DynamicParameters param = new DynamicParameters();
+            param.Add("SearchText", request.SearchText, DbType.String);
+            param.Add("SortExpression", request.SortExpression, DbType.String);
+            param.Add("StartRowIndex", request.StartRowIndex, DbType.Int32);
+            param.Add("PageSize", request.PageSize, DbType.Int32);
+
+            var sup = _dapper.ReturnBrandListMultiple("GetAllBrandDT", param);
+            var Response = new DataTableResponse<BrandDetail>()
+            {
+                draw = request.draw,
+                data = sup.Result.Rec,
+                recordsFiltered = sup.Result.TotalRecord,
+                recordsTotal = sup.Result.TotalRecord,
+
+            };
+            return Response;
         }
     }
 }

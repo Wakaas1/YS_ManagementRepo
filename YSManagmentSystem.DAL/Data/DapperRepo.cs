@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YSManagmentSystem.Domain.DataTableUser;
+using YSManagmentSystem.Domain.Items;
+using YSManagmentSystem.Domain.Order;
 using YSManagmentSystem.Domain.Product;
 using YSManagmentSystem.web.Models.DataTable;
 
@@ -147,6 +149,102 @@ namespace YSManagmentSystem.DAL.Data
                 using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
                 {
                     res.Rec = query.Read<CategoryDetail>().AsList<CategoryDetail>();
+                    if (!query.IsConsumed)
+                        res.TotalRecord = query.Read<int>().FirstOrDefault();
+                }
+            }
+            return res;
+        }
+
+        public async Task<Resultbrand> ReturnBrandListMultiple(string procrdureName, DynamicParameters param = null)
+        {
+            var res = new Resultbrand();
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
+                {
+                    res.Rec = query.Read<BrandDetail>().AsList<BrandDetail>();
+                    if (!query.IsConsumed)
+                        res.TotalRecord = query.Read<int>().FirstOrDefault();
+                }
+            }
+            return res;
+        }
+        public async Task<ResultLoc> ReturnLocationListMultiple(string procrdureName, DynamicParameters param = null)
+        {
+            var res = new ResultLoc();
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
+                {
+                    res.Rec = query.Read<LocationDetail>().AsList<LocationDetail>();
+                    if (!query.IsConsumed)
+                        res.TotalRecord = query.Read<int>().FirstOrDefault();
+                }
+            }
+            return res;
+        }
+
+        public async Task<ResultItem> ReturnItemListMultiple(string procrdureName, DynamicParameters param = null)
+        {
+            var res = new ResultItem();
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
+                {
+                    res.Rec = query.Read<ItemDetail>().AsList<ItemDetail>();
+                    if (!query.IsConsumed)
+                        res.TotalRecord = query.Read<int>().FirstOrDefault();
+                }
+            }
+            return res;
+        }
+
+        public async Task<ResultOrder> ReturnOrderListMultiple(string procrdureName, DynamicParameters param = null)
+        {
+            var res = new ResultOrder();
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
+                {
+                    res.Rec = query.Read<OrderList>().AsList<OrderList>();
+                    if (!query.IsConsumed)
+                        res.TotalRecord = query.Read<int>().FirstOrDefault();
+                }
+            }
+            return res;
+        }
+
+
+        public async Task<ResultCustomer> ReturnCustomerListMultiple(string procrdureName, DynamicParameters param = null)
+        {
+            var res = new ResultCustomer();
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
+                {
+                    res.Rec = query.Read<CustomerDetail>().AsList<CustomerDetail>();
+                    if (!query.IsConsumed)
+                        res.TotalRecord = query.Read<int>().FirstOrDefault();
+                }
+            }
+            return res;
+        }
+
+        public async Task<ResultOrderItem> ReturnOrderItemListMultiple(string procrdureName, DynamicParameters param = null)
+        {
+            var res = new ResultOrderItem();
+            using (SqlConnection sqlCon = new SqlConnection(connectionString))
+            {
+                sqlCon.Open();
+                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
+                {
+                    res.Rec = query.Read<OrderItemList>().AsList<OrderItemList>();
                     if (!query.IsConsumed)
                         res.TotalRecord = query.Read<int>().FirstOrDefault();
                 }

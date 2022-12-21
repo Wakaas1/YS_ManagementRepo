@@ -30,7 +30,7 @@
                 { data: "brandName" },
                 {
                     data: "id", "render": function (data, type, row) {
-                        return '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Supplier/AddOrEditSupplier?id=' + data + '" > <i class="fa fa-edit"></i></button>  <a href="#" class="btn btn-danger" onclick=DelProduct("' + data + '")><i class="fa fa-trash"></i></a>'
+                        return '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Supplier/AddOrEditSupplier?id=' + data + '" > <i class="fa fa-edit"></i></button>  <a href="#" class="btn btn-danger" onclick=DelSup("' + data + '")><i class="fa fa-trash"></i></a>'
                     },
                     "Width": "autowidth"
                 }
@@ -165,23 +165,65 @@ function validateEmpForm() {
         }
     });
 }
-
-function DelProduct(id) {
-    if (confirm("Are you sure you want to delete ...?")) {
-        Delete(id);
-    } else {
-        return false;
-    }
-}
-function Delete(id) {
-    var url = '@Url.Content("~/")' + "Product/DeleteProduct";
-
-    $.post(url, { ID: id }, function (data) {
-        if (data) {
-            oTable = $('#myTableSupplier').DataTable();
-            oTable.draw();
-        } else {
-            alert("Something Went Wrong!");
+function DelSup(id) {
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Content("~/")' + "Supplier/DeleteSupplier" / + id,
+                    /* url: '@Url.Action("DeleteLocation", "Location")/' + id,*/
+                    success: function (data) {
+                        dataTable.ajax.reload();
+                    }
+                });
+            }
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your Data has been deleted.',
+                'success'
+            )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary data is safe :)',
+                'error'
+            )
         }
     });
 }
+
+//function DelProduct(id) {
+//    if (confirm("Are you sure you want to delete ...?")) {
+//        Delete(id);
+//    } else {
+//        return false;
+//    }
+//}
+//function Delete(id) {
+//    var url = '@Url.Content("~/")' + "Product/DeleteProduct";
+
+//    $.post(url, { ID: id }, function (data) {
+//        if (data) {
+//            oTable = $('#myTableSupplier').DataTable();
+//            oTable.draw();
+//        } else {
+//            alert("Something Went Wrong!");
+//        }
+//    });
+//}

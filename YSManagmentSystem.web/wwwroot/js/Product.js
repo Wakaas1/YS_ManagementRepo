@@ -168,23 +168,65 @@ function validateEmpForm() {
         }
     });
 }
-
 function DelProduct(id) {
-    if (confirm("Are you sure you want to delete ...?")) {
-        Delete(id);
-    } else {
-        return false;
-    }
-}
-function Delete(id) {
-    var url = '@Url.Content("~/")' + "Product/DeleteProduct";
-
-    $.post(url, { ID: id }, function (data) {
-        if (data) {
-            oTable = $('#myTableUser').DataTable();
-            oTable.draw();
-        } else {
-            alert("Something Went Wrong!");
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
+    swalWithBootstrapButtons.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Content("~/")' + "Product/DeleteProduct" / + id,
+                    /* url: '@Url.Action("DeleteLocation", "Location")/' + id,*/
+                    success: function (data) {
+                        dataTable.ajax.reload();
+                    }
+                });
+            }
+            swalWithBootstrapButtons.fire(
+                'Deleted!',
+                'Your Data has been deleted.',
+                'success'
+            )
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire(
+                'Cancelled',
+                'Your imaginary data is safe :)',
+                'error'
+            )
         }
     });
 }
+
+//function DelProduct(id) {
+//    if (confirm("Are you sure you want to delete ...?")) {
+//        Delete(id);
+//    } else {
+//        return false;
+//    }
+//}
+//function Delete(id) {
+//    var url = '@Url.Content("~/")' + "Product/DeleteProduct";
+
+//    $.post(url, { ID: id }, function (data) {
+//        if (data) {
+//            oTable = $('#myTableProduct').DataTable();
+//            oTable.draw();
+//        } else {
+//            alert("Something Went Wrong!");
+//        }
+//    });
+//}

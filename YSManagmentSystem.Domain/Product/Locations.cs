@@ -11,4 +11,18 @@ namespace YSManagmentSystem.Domain.Product
         public int Id { get; set; }
         public string Location { get; set; }
     }
+    public class LocationDetail
+    {
+
+        public int Id { get; set; }
+        public string Location { get; set; }
+    }
+    public class TotalLoc
+    { public int TotalCount { get; set; } }
+
+    public class ResultLoc
+    {
+        public int TotalRecord { get; set; }
+        public List<LocationDetail> Rec { get; set; }
+    }
 }
