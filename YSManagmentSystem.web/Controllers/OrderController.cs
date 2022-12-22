@@ -1,9 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using YSManagmentSystem.BLL.Categories;
+using Microsoft.CodeAnalysis.VisualBasic;
+using System;
 using YSManagmentSystem.BLL.OrderService;
 using YSManagmentSystem.BLL.Products;
+using YSManagmentSystem.Domain.Order;
 using YSManagmentSystem.Domain.Product;
+using YSManagmentSystem.web.DTO;
 using YSManagmentSystem.web.Models.DataTable;
 
 namespace YSManagmentSystem.web.Controllers
@@ -11,17 +17,100 @@ namespace YSManagmentSystem.web.Controllers
     public class OrderController : Controller
     {
         private readonly IOrderServices _order;
+        private readonly ICustomerServices _customer;
+        private readonly IProductServices _product;
        
-        public OrderController(IOrderServices order)
+        public OrderController(IOrderServices order,ICustomerServices customer,IProductServices product)
         {
             _order = order;
-            
+            _customer = customer;
+            _product = product;
         }
 
         public IActionResult Index(DTReq req)
         {
             var loc = _order.GetAllOrderDT(req);
             return View(loc);
+        }
+
+        public IActionResult CreateOrder(int id)
+        {
+           
+            int r = _order.CreateNewOrder(id);
+            var list = _order.GetOrderByItem(r);
+            ViewBag.id = r;
+            return View(list);
+        }
+        //[HttpPost]
+        //public IActionResult CreateOrder(int id, AddOrder ord)
+        //{
+        //    ViewBag.PId = new SelectList(_product.GetAllProducts().ToList(), "Id", "ProductName");
+        //    ViewBag.OId = new SelectList(_order.GetAllOrder().ToList(), "Id");
+        //    System.Guid guid = System.Guid.NewGuid();
+        //    var order = new tbl_Order();
+        //    order.OrderDate = DateTime.Now;            
+        //    order.OrderNumber = guid.ToString();
+        //    order.CustomerId = id;
+        //    order.Status = false;
+        //    var r = _order.AddOrder(order);
+        //    var product = _product.GetProductByID(ord.ProductId);
+        //    var orderItem = new OrderItem();
+        //    orderItem.OrderId = r;
+        //    orderItem.ProductId = ord.ProductId;
+        //    orderItem.Cost = (float)product.Price;
+        //    orderItem.Quantity = ord.Quantity;
+        //    orderItem.Total = (float)(ord.Quantity * product.Price);
+         
+        //    _order.AddOrderItem(orderItem);
+        //    ViewBag.Oid = r;
+            
+        //    return View();
+        //}
+        
+        //public IActionResult CreateOrderItem(int id)
+        //{
+
+        //    var list = _order.GetOrderByItem(id);
+            
+            
+
+        //    return View(list);
+        //}
+        public IActionResult AddOrderItem(int id)
+        {
+            ViewBag.PId = new SelectList(_product.GetAllProducts().ToList(), "Id", "ProductName");
+
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddOrderItem(AddOrderItem addOrder, int id)
+        {
+
+
+            ViewBag.PId = new SelectList(_product.GetAllProducts().ToList(), "Id", "ProductName");
+            
+            var product = _product.GetProductByID(addOrder.ProductId);
+            var ordi = new OrderItem();
+            ordi.OrderId = id;
+            ordi.ProductId = addOrder.ProductId;
+            ordi.Quantity = addOrder.Quaintity;
+            ordi.Cost = (float)product.Price;
+            ordi.Discount = ordi.Discount;
+            ordi.Total = ordi.Quantity * (ordi.Cost - ordi.Discount);
+            var i = _order.AddOrderItem(ordi);
+
+
+            _order.AddOrderItem(ordi);
+            return RedirectToAction("CreateOrder");
+        }
+        public IActionResult OrderItem(int id)
+        {
+            var ord = _order.GetOrderByID(id);
+            var cus = _customer.GetCustomerByID(ord.CustomerId);
+            ViewBag.CName = cus.CustomerName;
+            ViewBag.ONum = ord.OrderNumber;
+            var list = _order.GetOrderByItem(id);
+            return View(list);
         }
 
         //[HttpGet]
@@ -128,5 +217,6 @@ namespace YSManagmentSystem.web.Controllers
             var loc = _order.GetAllOrderDT(request).Result;
             return Json(loc);
         }
+
     }
 }

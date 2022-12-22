@@ -236,20 +236,6 @@ namespace YSManagmentSystem.DAL.Data
             return res;
         }
 
-        public async Task<ResultOrderItem> ReturnOrderItemListMultiple(string procrdureName, DynamicParameters param = null)
-        {
-            var res = new ResultOrderItem();
-            using (SqlConnection sqlCon = new SqlConnection(connectionString))
-            {
-                sqlCon.Open();
-                using (var query = await sqlCon.QueryMultipleAsync(procrdureName, param, commandType: CommandType.StoredProcedure))
-                {
-                    res.Rec = query.Read<OrderItemList>().AsList<OrderItemList>();
-                    if (!query.IsConsumed)
-                        res.TotalRecord = query.Read<int>().FirstOrDefault();
-                }
-            }
-            return res;
-        }
+      
     }
 }

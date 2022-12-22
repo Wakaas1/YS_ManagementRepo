@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
+using YSManagmentSystem.BLL.Categories;
 using YSManagmentSystem.BLL.Products;
 using YSManagmentSystem.Domain.Product;
 using YSManagmentSystem.web.Models.DataTable;
@@ -10,9 +10,11 @@ namespace YSManagmentSystem.web.Controllers
     public class ProductController : Controller
     {
         private readonly IProductServices _product;
-        public ProductController(IProductServices product)
+        private readonly ICategoryServices _category;
+        public ProductController(IProductServices product,ICategoryServices category)
         {
             _product= product;
+            _category= category;
         }
         public IActionResult Index()
         {
@@ -26,10 +28,14 @@ namespace YSManagmentSystem.web.Controllers
             if (id > 0)
             {
                 var pro = _product.GetProductByID(id.GetValueOrDefault());
+                ViewBag.CId1 = new SelectList(_product.GetAllCategory().ToList(), "Id", "CategoryName", pro.CategoryId);
+                ViewBag.LId1 = new SelectList(_product.GetAllLocation().ToList(), "Id", "Location", pro.LocationId);
+                ViewBag.BId1 = new SelectList(_product.GetAllBrand().ToList(), "Id", "BrandName", pro.BrandId);
+                ViewBag.SId1 = new SelectList(_product.GetAllSupplier().ToList(), "Id", "SupplierName", pro.SupplierId);
                 return View(pro);
             }
 
-            ViewBag.CId = new SelectList(_product.GetAllCategory().ToList(), "Id", "CategoryName");
+            ViewBag.CId = new SelectList(_product.GetAllCategory().ToList(), "Id", "CategoryName" );
             ViewBag.LId = new SelectList(_product.GetAllLocation().ToList(), "Id", "Location");
             ViewBag.BId = new SelectList(_product.GetAllBrand().ToList(), "Id", "BrandName");
             ViewBag.SId = new SelectList(_product.GetAllSupplier().ToList(), "Id", "SupplierName");
@@ -45,6 +51,10 @@ namespace YSManagmentSystem.web.Controllers
             string Value;
             if (id > 0)
             {
+                ViewBag.CId1 = new SelectList(_product.GetAllCategory().ToList(), "Id", "CategoryName", pro.CategoryId);
+                ViewBag.LId1 = new SelectList(_product.GetAllLocation().ToList(), "Id", "Location", pro.LocationId);
+                ViewBag.BId1 = new SelectList(_product.GetAllBrand().ToList(), "Id", "BrandName", pro.BrandId);
+                ViewBag.SId1 = new SelectList(_product.GetAllSupplier().ToList(), "Id", "SupplierName", pro.SupplierId);
                 result = _product.UpdateProduct(pro);
                 if (result > 0)
                 {

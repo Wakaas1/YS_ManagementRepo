@@ -28,18 +28,29 @@ namespace YSManagmentSystem.BLL.OrderService
             param.Add("@Id", -1, dbType: DbType.Int32, direction: ParameterDirection.Output);
             param.Add("@OrderNumber", model.OrderNumber);
             param.Add("@CustomerId", model.CustomerId);
-            param.Add("@OrderDetail", model.OrderDetail);
             param.Add("@Status", model.Status);
             param.Add("@OrderDate", model.OrderDate);
-            param.Add("@CompletedDate", model.CompletedDate);
-            param.Add("@TotalCost", model.TotalCost);
-            param.Add("@Tax", model.Tax);
-            param.Add("@Discount", model.Discount);
-            param.Add("@DeliveryCharges", model.DeliveryCharges);
-            param.Add("@Total", model.Total);
+          
 
 
             var result = _dapper.CreateUserReturnInt("dbo.AddOrder", param);
+            if (result > 0)
+            { }
+            return result;
+        }
+
+        public int AddOrderItem(OrderItem model)
+        {
+            Dapper.DynamicParameters param = new DynamicParameters();
+            param.Add("@Id", -1, dbType: DbType.Int32, direction: ParameterDirection.Output);
+            param.Add("@OrderId", model.OrderId);
+            param.Add("@ProductId", model.ProductId);
+            param.Add("@Cost", model.Cost);
+            param.Add("@Quantity", model.Quantity);
+            param.Add("@Total", model.Total);
+
+
+            var result = _dapper.CreateUserReturnInt("dbo.AddOrderItem", param);
             if (result > 0)
             { }
             return result;
@@ -50,7 +61,6 @@ namespace YSManagmentSystem.BLL.OrderService
             param.Add("@Id", model.Id);
             param.Add("@OrderNumber", model.OrderNumber);
             param.Add("@CustomerId", model.CustomerId);
-            param.Add("@OrderDetail", model.OrderDetail);
             param.Add("@Status", model.Status);
             param.Add("@OrderDate", model.OrderDate);
             param.Add("@CompletedDate", model.CompletedDate);
@@ -85,6 +95,25 @@ namespace YSManagmentSystem.BLL.OrderService
             return ord;
         }
 
+        public List<OrderItemList> GetOrderByItem(int id)
+        {
+
+            Dapper.DynamicParameters param = new DynamicParameters();
+            param.Add("@OrderId", id);
+            var ord = _dapper.ReturnList<OrderItemList>("dbo.GetOrderItem", param).ToList();
+
+            return ord;
+        }
+        public int CreateNewOrder(int id)
+        {
+            System.Guid guid = System.Guid.NewGuid();
+            var order = new tbl_Order();
+            order.OrderDate = DateTime.Now;
+            order.OrderNumber = guid.ToString();
+            order.CustomerId = id;
+            order.Status = false;
+            return AddOrder(order);
+        }
         // DataTable, paging Sorting Searching
         public async Task<DataTableResponse<OrderList>> GetAllOrderDT(DTReq request)
         {

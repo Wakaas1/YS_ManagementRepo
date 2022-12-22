@@ -19,9 +19,8 @@ namespace YSManagmentSystem.Domain.Order
     {
         public int Id { get; set; }
         public string CustomerName { get; set; }
-        public string CustomerAddress { get; set; }
         public string Email { get; set; }
-        public string ContactName { get; set; }
+        public string ContactNumber { get; set; }
 
     }
     public class TotalCustomer

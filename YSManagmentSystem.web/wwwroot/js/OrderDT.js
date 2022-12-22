@@ -22,16 +22,17 @@
                 },
             }],
             columns: [
-                { data: "orderNumber" },
-                { data: "customerName" },
-                { data: "status" },
-                { data: "total" },
-
+                { data: "orderNumber", name: "Order Number" },
+                { data: "customerName", name: "Customer Number" },
+                { data: "status", name: "Status" },
+                { data: "total", name: "Grand Total" },
+                
                 {
-                    data: "id", "render": function (data, type, row) {
-                        return '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Order/AddOrEditOrder?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button href="#" class="btn btn-danger" onclick=DelOrd("' + data + '")><i class="fa fa-trash"></i></button>'
+                    data: "id", "render": function (data) {
+                        return '<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Order/OrderItem?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button href="#" class="btn btn-danger" onclick=DelOrd("' + data + '")><i class="fa fa-trash"></i></button>'
                     },
-                    "Width": "autowidth"
+                    name: "Action"
+                   
                 }
             ],
         });

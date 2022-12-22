@@ -1,0 +1,51 @@
+﻿@model YSManagmentSystem.web.DTO.AddOrderItem
+@{
+    ViewData["Title"] = "AddOrderItem";
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+}
+
+<h1>Add Order Item</h1>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            @using(Html.BeginForm("AddOrderItem", "Order", FormMethod.Post, new { id=ViewBag.Oid}))
+            {
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <select asp-for="ProductId" asp-items="@ViewBag.PId" class="form-select">
+                    <option value="0">Choose A Product</option>
+                </select>
+                        </div>
+                    </div>
+                </div>
+                 <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input asp-for="Cost" class="form-control" placeholder="Enter Product Cost" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input asp-for="Quaintity" class="form-control" placeholder="Enter Product Quantity" >
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <input asp-for="total" class="form-control" placeholder="Enter Product Total"  >
+                            
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="submit" class="btn btn-primary" id="Add" style="background-color:darkgreen;">Submit</button>
+           }
+        </div>
+    </div>
+</div>

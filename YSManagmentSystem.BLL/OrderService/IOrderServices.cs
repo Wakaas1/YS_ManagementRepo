@@ -10,6 +10,9 @@ namespace YSManagmentSystem.BLL.OrderService
         int UpdateOrder(tbl_Order model);
         tbl_Order GetOrderByID(int id);
         int DeleteOrder(int id);
+        List<OrderItemList> GetOrderByItem(int id);
+        int AddOrderItem(OrderItem model);
+        int CreateNewOrder(int id);
         Task<DataTableResponse<OrderList>> GetAllOrderDT(DTReq request);
     }
 }

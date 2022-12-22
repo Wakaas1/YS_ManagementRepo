@@ -29,11 +29,10 @@ namespace YSManagmentSystem.web.Controllers
                 var loc = _customer.GetCustomerByID(id.GetValueOrDefault());
                 return View(loc);
             }
-                return View();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-
         public IActionResult AddOrEditCustomer(int? id, Customer cus)
         {
             long result = 0;

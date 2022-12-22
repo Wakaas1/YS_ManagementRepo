@@ -8,10 +8,11 @@
         </div>
         <div class="header-left">
             <div class="input-group icons">
-                <div class="input-group-prepend">
+                
+                <div class="input-group-prepend" >
                     <span class="input-group-text bg-transparent border-0 pr-2 pr-sm-3" id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
                 </div>
-                <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard">
+                <input type="search" class="form-control" placeholder="Search Dashboard" aria-label="Search Dashboard" >
                 <div class="drop-down animated flipInX d-md-none">
                     <form action="#">
                         <input type="text" class="form-control" placeholder="Search">
@@ -19,6 +20,7 @@
                 </div>
             </div>
         </div>
+
         <div class="header-right">
             <ul class="clearfix">
                 <li class="icons dropdown">
@@ -33,8 +35,8 @@
                                 <span class="badge badge-pill gradient-1">3</span>
                             </a>
                         </div>
-                        <div class="dropdown-content-body">
-                            <ul>
+                        @*<div class="dropdown-content-body">
+                          @*  <ul>
                                 <li class="notification-unread">
                                     <a href="javascript:void()">
                                         <img class="float-left mr-3 avatar-img" src="images/avatar/1.jpg" alt="">
@@ -77,9 +79,9 @@
                                 </li>
                             </ul>
 
-                        </div>
+                        </div>*@
                     </div>
-                </li>
+                        </li>
                 <li class="icons dropdown">
                     <a href="javascript:void(0)" data-toggle="dropdown">
                         <i class="mdi mdi-bell-outline"></i>
@@ -139,13 +141,13 @@
                 <li class="icons dropdown">
                     <div class="user-img c-pointer position-relative" data-toggle="dropdown">
                         <span class="activity active"></span>
-                        <img src="images/user/1.png" height="40" width="40" alt="">
+                        <img src="~/User/Img/User.png" height="40" width="40" alt="">
                     </div>
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>
                                 <li>
-                                    <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                    <a href="/User/ProfileView"><i class="icon-user"></i> <span>Profile</span></a>
                                 </li>
                                 <li>
                                     <a href="javascript:void()">
@@ -157,7 +159,7 @@
                                 <li>
                                     <a href="page-lock.html"><i class="icon-lock"></i> <span>Lock Screen</span></a>
                                 </li>
-                                <li><a href="page-login.html"><i class="icon-key"></i> <span>Logout</span></a></li>
+                                <li><a href="/Account/Logout"><i class="icon-key"></i> <span>Logout</span></a></li>
                             </ul>
                         </div>
                     </div>

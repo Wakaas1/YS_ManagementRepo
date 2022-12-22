@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#myTableOrder').DataTable(
+    $('#myTableCustomer').DataTable(
         {
             "Processing": true, // for show progress bar
             "serverSide": true, // for process server side
@@ -7,7 +7,7 @@
             "orderMulti": true, // for disable multiple column at once
             "bDestroy": true,
             "ajax": {
-                "url": "/Order/GetAllOrder",
+                "url": "/Customer/GetAllCustomer",
                 "type": "POST",
                 "datatype": "json"
             },
@@ -22,14 +22,14 @@
                 },
             }],
             columns: [
-                { data: "orderNumber" },
+                { data: "id"},
                 { data: "customerName" },
-                { data: "status" },
-                { data: "total" },
+                { data: "email" },
+                { data: "contactNumber" },
 
                 {
                     data: "id", "render": function (data, type, row) {
-                        return '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Order/AddOrEditOrder?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button href="#" class="btn btn-danger" onclick=DelOrd("' + data + '")><i class="fa fa-trash"></i></button>'
+                        return '<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"  href="" data-url="/Customer/AddOrEditCustomer?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Order/CreateOrder?id=' + data + '" > <i class="fa fa-info"></i></button>  <button href="#" class="btn btn-danger" onclick=DelCus("' + data + '")><i class="fa fa-trash"></i></button>'
                     },
                     "Width": "autowidth"
                 }
@@ -38,12 +38,12 @@
 });
 
 $('#exampleModal').on('shown.bs.modal', function (event) {
-    $('#orderPopup').html();
+    $('#customerPopup').html();
     var url = '';
     url = event.relatedTarget.getAttribute('data-url');
     $.get(url)
         .done(function (response) {
-            $('#orderPopup').html(response);
+            $('#customerPopup').html(response);
         });
 });
 
@@ -127,7 +127,7 @@ function validateEmpForm() {
                                 timer: 1000,
 
                             });
-                        $('#myTableOrder').DataTable().ajax.reload();
+                        $('#myTableCustomer').DataTable().ajax.reload();
                         //notify("saved", "App Design Pattern Mapping Updated Successfully !");
                     }
                     else {
@@ -164,7 +164,7 @@ function validateEmpForm() {
         }
     });
 }
-function DelOrd(id) {
+function DelCus(id) {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -185,7 +185,7 @@ function DelOrd(id) {
             {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Content("~/")' + "Order/DeleteOrder" / + id,
+                    url: '@Url.Content("~/")' + "Customer/DeleteCustomer" / + id,
                     /* url: '@Url.Action("DeleteLocation", "Location")/' + id,*/
                     success: function (data) {
                         dataTable.ajax.reload();

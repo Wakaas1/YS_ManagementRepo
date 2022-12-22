@@ -57,6 +57,16 @@ namespace YSManagmentSystem.BLL.OrderService
 
             return cus;
         }
+
+        public List<Customer> GetAllCustomer()
+        {
+
+            Dapper.DynamicParameters param = new DynamicParameters();
+            
+            var cus = _dapper.ReturnList<Customer>("dbo.GetAllCustomer", param).ToList();
+
+            return cus;
+        }
         public int DeleteCustomer(int id)
         {
             Dapper.DynamicParameters param = new DynamicParameters();
@@ -89,4 +99,4 @@ namespace YSManagmentSystem.BLL.OrderService
         }
     }
 }
-}
+

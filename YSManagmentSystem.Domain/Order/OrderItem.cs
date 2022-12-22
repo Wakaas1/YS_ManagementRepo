@@ -10,18 +10,20 @@ namespace YSManagmentSystem.Domain.Order
     {
         public int Id { get; set; }
         public int OrderId { get; set; }
-        public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public float Cost { get; set; }
         public float Discount { get; set; }
         public float Total { get; set; }
+
     }
 
     public class OrderItemList
     {
+        public int Id { get; set; }
         public string ProductName { get; set; }
         public int Quantity { get; set; }
+        public float Cost { get; set; }
         public float Total { get; set; }
     }
 

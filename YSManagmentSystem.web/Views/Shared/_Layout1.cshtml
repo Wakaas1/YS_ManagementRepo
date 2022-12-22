@@ -3,20 +3,31 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - SchoolMS.WEB</title>
+    <title>@ViewData["Title"] - YSManagment.WEB</title>
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="icon" type="image/png" sizes="16x16" href="~/Temp/images/favicon.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="~/" />
     <!-- Pignose Calender -->
     <link href="~/Temp/plugins/pg-calendar/css/pignose.calendar.min.css" rel="stylesheet" />
     <!-- Chartist -->
-    <link rel="stylesheet" href="~/Temp/plugins/chartist/css/chartist.min.css" />
-    <link rel="stylesheet" href="~/Temp/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css" />
+    @*<link rel="stylesheet" href="~/Temp/plugins/chartist/css/chartist.min.css" />
+    <link rel="stylesheet" href="~/Temp/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css" />*@
+
+   
+    <link href="/css/validation.css" rel="stylesheet" />
+    <link href="/css/site.css" rel="stylesheet" />
+    
+    <link href="/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="/font-awesome/css/all.min.css" rel="stylesheet" />
+
+    <link href="~/limonte-sweetalert2/sweetalert2.css" rel="stylesheet" />
+    <link href="~/limonte-sweetalert2/sweetalert2.min.css" rel="stylesheet" />
     <!-- Custom Stylesheet -->
     <link href="~/Temp/css/style.css" rel="stylesheet" />
+    
 </head>
 <body>
-
+   
 
     <!--*******************
         Preloader start
@@ -36,10 +47,10 @@
     <div class="nav-header">
         <div class="brand-logo">
             <a asp-area="" asp-controller="Home" asp-action="Index">
-                <b class="logo-abbr"><img src="~/Temp/images/logo.png" alt="" /> </b>
-                <span class="logo-compact"><img src="~/Temp/images/logo-compact.png" alt="" /></span>
+                <b class="logo-abbr"><img src="~/" alt="" /> </b>
+                <span class="logo-compact"><img src="~/" alt="" /></span>
                 <span class="brand-title">
-                    <img src="images/logo-text.png" alt="">
+                    <img src="~/" alt="">
                 </span>
             </a>
         </div>
@@ -55,7 +66,7 @@
     <div class="content-body">
 
 
-        <div class="container">
+        <div class="container-fluid">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
@@ -70,6 +81,7 @@
     <!--**********************************
         Scripts
     ***********************************-->
+    <script src="~//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="~/Temp/plugins/common/common.min.js"></script>
     <script src="~/Temp/js/custom.min.js"></script>
     <script src="~/Temp/js/settings.js"></script>
@@ -77,13 +89,13 @@
     <script src="~/Temp/js/styleSwitcher.js"></script>
 
     <!-- Chartjs -->
-    <script src="~/Temp/plugins/chart.js/Chart.bundle.min.js"></script>
+    @*<script src="~/Temp/plugins/chart.js/Chart.bundle.min.js"></script>*@
     <!-- Circle progress -->
     <script src="~/Temp/plugins/circle-progress/circle-progress.min.js"></script>
     <!-- Datamap -->
     <script src="~/Temp/plugins/d3v3/index.js"></script>
     <script src="~/Temp/plugins/topojson/topojson.min.js"></script>
-    <script src="~/Temp/plugins/datamaps/datamaps.world.min.js"></script>
+    @*<script src="~/Temp/plugins/datamaps/datamaps.world.min.js"></script>*@
     <!-- Morrisjs -->
     <script src="~/Temp/plugins/raphael/raphael.min.js"></script>
     <script src="~/Temp/plugins/morris/morris.min.js"></script>
@@ -94,6 +106,18 @@
     <script src="~/Temp/plugins/chartist/js/chartist.min.js"></script>
     <script src="~/Temp/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
 
+
+    <script src="@Url.Content("~/lib/jquery-validation/dist/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/lib/jquery-validation/dist/additional-methods.js")"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/datatables/js/jquery.datatables.min.js"></script>
+    <script src="/datatables/js/datatables.datatables.min.js"></script>
+    <script src="/datatables/js/datatables.bootstrap.min.js"></script>
+    <script src="/datatables/js/datatables.jqueryui.min.js"></script>
+    <script src="/datatables/js/datatables.bootstrap5.min.js"></script>
+    <script src="/js/bootstrapnotify.js"></script>
+    <script src="~/limonte-sweetalert2/sweetalert2.all.js"></script>
+    <script src="~/limonte-sweetalert2/sweetalert2.all.min.js"></script>
 
 
     <script src="~/Temp/js/dashboard/dashboard-1.js"></script>

@@ -49,32 +49,33 @@
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <select asp-for="CategoryId" asp-items="@ViewBag.CId" class="form-select">
+                <select class="custom-select mr-sm-2" asp-items="@ViewBag.CId" >
                     <option value="0">Choose A Category</option>
                 </select>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <select asp-for="LocationId" asp-items="@ViewBag.LId" class="form-select">
+                <select class="custom-select mr-sm-2" asp-items="@ViewBag.LId" >
                     <option value="0">Choose A Location</option>
                 </select>
             </div>
         </div>
         <div class="col-lg-6">
             <div class="form-group">
-                <select asp-for="SupplierId" asp-items="@ViewBag.SId" class="form-select">
+                <select class="custom-select mr-sm-2" asp-items="@ViewBag.SId" >
                     <option value="0">Choose A Supplier</option>
                 </select>
             </div>
         </div>
            <div class="col-lg-6">
             <div class="form-group">
-                <select asp-for="BrandId" asp-items="@ViewBag.BId" class="form-select">
+                <select class="custom-select mr-sm-2" asp-items="@ViewBag.BId" >
                     <option value="0">Choose A Brand</option>
                 </select>
             </div>
         </div>
+
 
     </div>
               @*  <div class="form-group col-md-6">

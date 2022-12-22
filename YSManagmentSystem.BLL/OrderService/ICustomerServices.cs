@@ -9,6 +9,7 @@ namespace YSManagmentSystem.BLL.OrderService
         int DeleteCustomer(int id);
         Task<DataTableResponse<CustomerDetail>> GetAllCustomerDT(DTReq request);
         Customer GetCustomerByID(int id);
+        List<Customer> GetAllCustomer();
         int UpdateCustomer(Customer model);
     }
 }
