@@ -1,14 +1,11 @@
-﻿
-using DocumentFormat.OpenXml.Office2010.Excel;
+﻿using DocumentFormat.OpenXml.Office2010.Excel;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.VisualBasic;
-using System;
+using NuGet.Common;
 using YSManagmentSystem.BLL.OrderService;
 using YSManagmentSystem.BLL.Products;
 using YSManagmentSystem.Domain.Order;
-using YSManagmentSystem.Domain.Product;
 using YSManagmentSystem.web.DTO;
 using YSManagmentSystem.web.Models.DataTable;
 
@@ -35,12 +32,41 @@ namespace YSManagmentSystem.web.Controllers
 
         public IActionResult CreateOrder(int id)
         {
-           
-            int r = _order.CreateNewOrder(id);
-            var list = _order.GetOrderByItem(r);
-            ViewBag.id = r;
-            return View(list);
+            ViewBag.CId = new SelectList(_customer.GetAllCustomer().ToList(), "Id", "CustomerName");
+            if (id == 0)
+            {
+                System.Guid guid = System.Guid.NewGuid();
+                var order = new tbl_Order();
+                order.OrderDate = DateTime.Now;
+                order.OrderNumber = guid.ToString();
+                order.CustomerId = 0;
+                order.Status = false;
+                int r = _order.CreateNewOrder(id);
+                var list = _order.GetOrderByItem(r);
+                ViewBag.id = r;
+                TempData["Oid"] = r;
+                return View(list);
+                
+            }
+            else
+            {
+                TempData["OId"] = id;
+                var list = _order.GetOrderByItem(id);
+                return View(list);
+            }
+            
         }
+
+        [HttpPost]
+        public IActionResult AddCustomer(int CId)
+        {
+            int li = (int)TempData["OId"];
+            ViewBag.CId = new SelectList(_customer.GetAllCustomer().ToList(), "Id", "CustomerName");
+            _order.AddCustomer(li,CId);
+            int id = li;
+            return Redirect(Url.Action("CreateOrder", "Order", new { id }, "https"));
+        }
+
         //[HttpPost]
         //public IActionResult CreateOrder(int id, AddOrder ord)
         //{
@@ -78,30 +104,32 @@ namespace YSManagmentSystem.web.Controllers
         //}
         public IActionResult AddOrderItem(int id)
         {
+            ViewBag.CId = new SelectList(_customer.GetAllCustomer().ToList(), "Id", "CustomerName");
             ViewBag.PId = new SelectList(_product.GetAllProducts().ToList(), "Id", "ProductName");
 
             return View();
         }
         [HttpPost]
-        public IActionResult AddOrderItem(AddOrderItem addOrder, int id)
+        public IActionResult AddOrderItem(AddOrderItem addOrder)
         {
-
-
+            int li = (int)TempData["Oid"];
             ViewBag.PId = new SelectList(_product.GetAllProducts().ToList(), "Id", "ProductName");
-            
+            //ViewBag.OId = new SelectList(_order.GetAllOrders().ToList(), "Id");
             var product = _product.GetProductByID(addOrder.ProductId);
             var ordi = new OrderItem();
-            ordi.OrderId = id;
+            ordi.OrderId = li;
             ordi.ProductId = addOrder.ProductId;
             ordi.Quantity = addOrder.Quaintity;
             ordi.Cost = (float)product.Price;
             ordi.Discount = ordi.Discount;
             ordi.Total = ordi.Quantity * (ordi.Cost - ordi.Discount);
             var i = _order.AddOrderItem(ordi);
-
+            var id = _order.GetOrderItemByID(i).OrderId;
 
             _order.AddOrderItem(ordi);
-            return RedirectToAction("CreateOrder");
+            
+
+            return Redirect(Url.Action("CreateOrder", "Order", new { id }, "https"));
         }
         public IActionResult OrderItem(int id)
         {

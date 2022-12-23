@@ -13,6 +13,9 @@ namespace YSManagmentSystem.BLL.OrderService
         List<OrderItemList> GetOrderByItem(int id);
         int AddOrderItem(OrderItem model);
         int CreateNewOrder(int id);
+        List<tbl_Order> GetAllOrders();
         Task<DataTableResponse<OrderList>> GetAllOrderDT(DTReq request);
+         OrderItem GetOrderItemByID(int id);
+        tbl_Order AddCustomer(int id, int cid);
     }
 }

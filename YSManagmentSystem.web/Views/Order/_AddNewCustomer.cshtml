@@ -1,0 +1,28 @@
+﻿
+
+@{
+    Layout = null;
+}
+
+<button class="btn btn-secondary" asp-action="AddCustomer" asp-controller="Customer">Add New Customer</button><br />
+@using (Html.BeginForm("AddCustomer","Order", FormMethod.Post))
+{
+    <select class="js-example-basic" name="CId" id="CId" asp-items="@ViewBag.CId" >
+    <option value="0">Choose a Customer</option> 
+</select>
+<input type="submit" class="btn btn-primary"  />
+}
+
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+@section Scripts {
+    <script src="~//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~//https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic').select2();
+        });
+        </script>
+
+}

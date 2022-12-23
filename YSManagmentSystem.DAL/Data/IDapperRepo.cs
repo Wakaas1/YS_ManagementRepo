@@ -25,7 +25,7 @@ namespace YSManagmentSystem.DAL.Data
         Task<ResultItem> ReturnItemListMultiple(string procrdureName, DynamicParameters param = null);
         Task<ResultOrder> ReturnOrderListMultiple(string procrdureName, DynamicParameters param = null);
         Task<ResultCustomer> ReturnCustomerListMultiple(string procrdureName, DynamicParameters param = null);
-
+       
 
 
     }

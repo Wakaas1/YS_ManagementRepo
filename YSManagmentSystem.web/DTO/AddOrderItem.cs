@@ -1,13 +1,13 @@
 ﻿namespace YSManagmentSystem.web.DTO
 {
-    public class AddOrderItem
-    {
+    //public class AddOrderItem
+    //{
        
-        public int ProductId { get; set; }
-        public float Cost { get; set; }
-        public int Quaintity { get; set; }
-        public float total { get { return Cost * Quaintity; } }
-    }
+    //    public int ProductId { get; set; }
+    //    public float Cost { get; set; }
+    //    public int Quaintity { get; set; }
+    //    public float total { get { return Cost * Quaintity; } }
+    //}
     public class OrderId
     {
         public int Id { get; set; } = 0;

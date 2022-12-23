@@ -55,6 +55,8 @@ namespace YSManagmentSystem.BLL.OrderService
             { }
             return result;
         }
+
+        
         public int UpdateOrder(tbl_Order model)
         {
             Dapper.DynamicParameters param = new DynamicParameters();
@@ -76,12 +78,31 @@ namespace YSManagmentSystem.BLL.OrderService
             { }
             return result;
         }
+        public OrderItem GetOrderItemByID(int id)
+        {
+
+            Dapper.DynamicParameters param = new DynamicParameters();
+            param.Add("@Id", id);
+            var ord = _dapper.ReturnList<OrderItem>("dbo.GetOrderItemById", param).FirstOrDefault();
+
+            return ord;
+        }
         public tbl_Order GetOrderByID(int id)
         {
 
             Dapper.DynamicParameters param = new DynamicParameters();
             param.Add("@Id", id);
             var ord = _dapper.ReturnList<tbl_Order>("dbo.GetOrderByID", param).FirstOrDefault();
+
+            return ord;
+        }
+        public tbl_Order AddCustomer(int id,int cid)
+        {
+
+            Dapper.DynamicParameters param = new DynamicParameters();
+            param.Add("@Id", id);
+            param.Add("@CId", cid);
+            var ord = _dapper.ReturnList<tbl_Order>("dbo.AddCustomerToOrder", param).FirstOrDefault();
 
             return ord;
         }
@@ -94,13 +115,22 @@ namespace YSManagmentSystem.BLL.OrderService
 
             return ord;
         }
-
         public List<OrderItemList> GetOrderByItem(int id)
         {
 
             Dapper.DynamicParameters param = new DynamicParameters();
             param.Add("@OrderId", id);
             var ord = _dapper.ReturnList<OrderItemList>("dbo.GetOrderItem", param).ToList();
+
+            return ord;
+        }
+
+        public List<tbl_Order> GetAllOrders()
+        {
+
+            Dapper.DynamicParameters param = new DynamicParameters();
+           
+            var ord = _dapper.ReturnList<tbl_Order>("dbo.GetAllOrderList", param).ToList();
 
             return ord;
         }

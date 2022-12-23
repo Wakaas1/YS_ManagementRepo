@@ -1,33 +1,5 @@
 ﻿@model List<YSManagmentSystem.Domain.Order.OrderItemList>
 
-@{
-    ViewData["Title"] = "CreateOrder";
-    Layout = "~/Views/Shared/_Layout1.cshtml";
-}
-
-       
-            <div class="container-fluid">
-                <div class="card text-center">
-                    <div class="card-body">
-                <div class="row">
-                        <div class="col-md-6">
-                            <div class="container">
-                                <div style="width:90%; margin:0 auto" class="tablecontainer">
-                                    <a type="button" class="btn btn-primary" href="/Order/AddOrderItem?id=@ViewBag.id "> <i class="fa fa-plus"></i> Add Order </a>
-                                </div>
-                        </div>
-                    </div>
-                             <div class="col-md-6">
-                        <partial name="_AddNewCustomer"/>
-                        </div>
-                        </div>
-                        </div>
-                        </div>
-</div>
-
-<br />
-
-<h1>Order Item List</h1>
 
 <div class="container-fluid">
     <div class="card text-center">

@@ -22,17 +22,15 @@
                 },
             }],
             columns: [
-                { data: "orderNumber", name: "Order Number" },
-                { data: "customerName", name: "Customer Number" },
-                { data: "status", name: "Status" },
-                { data: "total", name: "Grand Total" },
-                
+                { data: "orderNumber" },
+                { data: "customerName" },
+                { data: "status" },
+                { data: "total" },
                 {
                     data: "id", "render": function (data) {
                         return '<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Order/OrderItem?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button href="#" class="btn btn-danger" onclick=DelOrd("' + data + '")><i class="fa fa-trash"></i></button>'
-                    },
-                    name: "Action"
-                   
+                    }, 
+                    "Width": "autowidth"
                 }
             ],
         });
