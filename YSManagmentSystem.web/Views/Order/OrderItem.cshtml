@@ -3,12 +3,12 @@
     ViewData["Title"] = "OrderItem";
     Layout = "~/Views/Shared/_Layout1.cshtml";
 }
-<h1>Order Item List</h1>
+@*<h1>Order Item List</h1>
 <div class="container">
     <div style="width:90%; margin:0 auto" class="tablecontainer">
-    <a type="button" class="btn btn-primary" href="/Order/AddOrderItem?id=@ViewBag.id "> <i class="fa fa-plus"></i> Add Order </a>
+    <a type="button" class="btn btn-primary" href="/Order/AddOrderItem?id=@ViewBag.Id "> <i class="fa fa-plus"></i> Add Order </a>
 </div>
-</div>
+</div>*@
 
 <div class="container-fluid">
  <div class="card text-center">
@@ -35,7 +35,7 @@
         <div class="col-md-12">
 
             <table class="table">
-                <thead>
+               
                     <tr>
                         
                         <th>
@@ -44,36 +44,32 @@
                         <th>
                             Quantity
                         </th>
-                                <th>
-                                    Cost
-                                </th>
+                        
                         <th>
                             Total
                         </th>
                         <th></th>
                     </tr>
-                </thead>
-                <tbody>
+                
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ProductName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Quantity)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Cost)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Total)
-                            </td>
-                            
-                        </tr>
-                    }
-                </tbody>
+                     <tr>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProductName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Quantity)
+                                    </td>
+                                       <td>
+                                        @Html.DisplayFor(modelItem => item.Total)
+                                    </td>
+
+                                    </tr>
+                     
+                        }
+                                
+                
             </table>
 
 
@@ -81,4 +77,18 @@
     </div>
 </div>
 </div>
+    
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Grand Total : @ViewBag.GT</h6>
+                    </div>
+                    <div class="col-md-6">
+                    <input type="button" value="Print"/>
+                </div>
+                </div>
+            </div>
+        </div>
+    
 </div>

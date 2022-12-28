@@ -29,7 +29,7 @@ namespace YSManagmentSystem.web.Controllers
                 var loc = _customer.GetCustomerByID(id.GetValueOrDefault());
                 return View(loc);
             }
-            return RedirectToAction("Index");
+            return View();
         }
 
         [HttpPost]
@@ -79,12 +79,12 @@ namespace YSManagmentSystem.web.Controllers
             {
                 return NotFound();
             }
-            var loc = _customer.GetCustomerByID(id.GetValueOrDefault());
-            if (loc == null)
+            var cs = _customer.GetCustomerByID(id.GetValueOrDefault());
+            if (cs == null)
 
                 return NotFound();
 
-            return View(loc);
+            return View(cs);
         }
 
 

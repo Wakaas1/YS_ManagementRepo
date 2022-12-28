@@ -45,10 +45,12 @@
                                 <th>
                                     Quantity
                                 </th>
+                                <th></th>
+                                <th>Price</th>
                                 <th>
                                     Total
                                 </th>
-                                <th>Action</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
@@ -63,15 +65,26 @@
                                         @Html.DisplayFor(modelItem => item.Quantity)
                                     </td>
                                     <td>
+                                        <a asp-action="Add" asp-route-id="@item.Id" class="btn btn-sm btn-primary">+</a>
+                                        <a asp-action="Decrease" asp-route-id="@item.Id" class="btn btn-sm btn-success">-</a>
+                                        <a asp-action="Remove" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Remove</a>
+                                    </td>
+                                    <td>@item.Price</td>
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.Total)
                                     </td>
-                                    <td>
-                                        <a asp-action="AddOrderItem" asp-route-id="@item.Id">Edit</a> |
-                                        <a asp-action="AddOrderItem" asp-route-id="@item.Id">Details</a> |
-                                        <a class="confirmDeletion" asp-action="Delete" asp-route-id="@item.Id">Remove</a>
-                                    </td>
+                                   
                                 </tr>
                             }
+                            <tr>
+                                 @*<td class="text-right" colspan="4">Grand Total: @Model.GrandTotal.ToString("C2")</td>*@
+                            </tr>
+                            <tr>
+                                <td class="text-right" colspan="4">
+                                    <a asp-action="Clear" class="btn btn-danger">Clear Cart</a>
+                                    <a asp-action="Checkout" class="btn btn-primary checkout">Checkout</a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
 
@@ -80,6 +93,18 @@
             </div>
         </div>
     </div>
+    <div class="card text-center">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Grand Total : @ViewBag.tot</h6>
+                    </div>
+                    <div class="col-md-6">
+                    <input type="button" value="Print"/>
+                </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 

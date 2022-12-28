@@ -8,6 +8,12 @@ using YSManagmentSystem.BLL.Products;
 using YSManagmentSystem.Domain.Order;
 using YSManagmentSystem.web.DTO;
 using YSManagmentSystem.web.Models.DataTable;
+using System.Linq;
+using System.Web;
+using DocumentFormat.OpenXml.InkML;
+using YSManagmentSystem.Domain.Product;
+using Microsoft.AspNetCore.Http;
+using System.Security.Cryptography;
 
 namespace YSManagmentSystem.web.Controllers
 {
@@ -52,6 +58,8 @@ namespace YSManagmentSystem.web.Controllers
             {
                 TempData["OId"] = id;
                 var list = _order.GetOrderByItem(id);
+                var tot = list.Sum(x => x.Total);
+                ViewBag.tot = tot;
                 return View(list);
             }
             
@@ -86,22 +94,24 @@ namespace YSManagmentSystem.web.Controllers
         //    orderItem.Cost = (float)product.Price;
         //    orderItem.Quantity = ord.Quantity;
         //    orderItem.Total = (float)(ord.Quantity * product.Price);
-         
+
         //    _order.AddOrderItem(orderItem);
         //    ViewBag.Oid = r;
-            
+
         //    return View();
         //}
-        
+
         //public IActionResult CreateOrderItem(int id)
         //{
 
         //    var list = _order.GetOrderByItem(id);
-            
-            
+
+
 
         //    return View(list);
         //}
+
+        [HttpGet]
         public IActionResult AddOrderItem(int id)
         {
             ViewBag.CId = new SelectList(_customer.GetAllCustomer().ToList(), "Id", "CustomerName");
@@ -121,22 +131,24 @@ namespace YSManagmentSystem.web.Controllers
             ordi.ProductId = addOrder.ProductId;
             ordi.Quantity = addOrder.Quaintity;
             ordi.Cost = (float)product.Price;
-            ordi.Discount = ordi.Discount;
+            ordi.Discount = (ordi.Cost * ordi.Discount)/100;
             ordi.Total = ordi.Quantity * (ordi.Cost - ordi.Discount);
             var i = _order.AddOrderItem(ordi);
             var id = _order.GetOrderItemByID(i).OrderId;
 
-            _order.AddOrderItem(ordi);
-            
+
+            TempData["OID"] = li;
 
             return Redirect(Url.Action("CreateOrder", "Order", new { id }, "https"));
         }
+        [HttpGet]
         public IActionResult OrderItem(int id)
         {
             var ord = _order.GetOrderByID(id);
             var cus = _customer.GetCustomerByID(ord.CustomerId);
             ViewBag.CName = cus.CustomerName;
             ViewBag.ONum = ord.OrderNumber;
+            ViewBag.GT = ord.Total;
             var list = _order.GetOrderByItem(id);
             return View(list);
         }
@@ -230,6 +242,54 @@ namespace YSManagmentSystem.web.Controllers
         //Data Table, Searching, sorting, Paging, Total Count,Filtering
 
 
+        //public IActionResult Add(int id)
+        //{
+        //    Product product = _product.GetProductByID(id);
+
+        //    List<OrderItem> cart = HttpContext.Session.GetJson<List<OrderItem>>("Order") ?? new List<OrderItem>();
+
+        //    OrderItem cartItem = cart.Where(x => x.Id == id).FirstOrDefault();
+
+        //    if (cartItem == null)
+        //    {
+        //        cart.Add(new OrderItem(product));
+        //    }
+        //    else
+        //    {
+        //        cartItem.Quantity += 1;
+        //    }
+
+        //    HttpContext.Session.SetJson("Order", cart);
+
+        //    if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+        //        return RedirectToAction("Index");
+
+        //    return ViewComponent("SmallCart");
+        //}
+
+
+        // GET: OrderController/Checkout
+      
+
+        [HttpPost]    
+        public IActionResult Checkout(int id)
+        {
+            int li = (int)TempData["OID"];
+
+            return Redirect(Url.Action("OrderItem", "Order", new { li }, "https")); ;
+        }
+
+        // GET /cart/Clear
+        public IActionResult Clear()
+        {
+            HttpContext.Session.Remove("Order");
+
+            //return RedirectToAction("Page", "Pages");
+            //return Redirect("/");
+            if (HttpContext.Request.Headers["X-Requested-With"] != "XMLHttpRequest")
+                return Redirect(Request.Headers["Referer"].ToString());
+            return Ok();
+        }
         [HttpPost]
         public JsonResult GetAllOrder()
         {

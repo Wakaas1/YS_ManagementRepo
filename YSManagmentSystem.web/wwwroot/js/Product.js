@@ -79,7 +79,7 @@ if ($.validator) {
 
 }
 function validateEmpForm() {
-    $('#myform').validate({
+    $('#step-form-horizontal').validate({
         rules: {
             name: { required: true },
             email: { required: true },
@@ -95,7 +95,7 @@ function validateEmpForm() {
 
         },
         submitHandler: function (form) {
-            var form = $('#myform')[0];
+            var form = $('#step-form-horizontal')[0];
             var formData = new FormData(form);
             $.ajax({
                 url: form.action,

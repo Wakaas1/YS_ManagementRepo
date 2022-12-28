@@ -8,9 +8,9 @@ namespace YSManagmentSystem.Domain.Order
 {
     public class OrderListing
     {
-        public int Id { get; set; }
-        public List<OrderItem> Items { get; set; }
-       
+        
+        public List<OrderItemList> Items { get; set; }
+        public float GrandTotal { get; set; }
 
     }
 }

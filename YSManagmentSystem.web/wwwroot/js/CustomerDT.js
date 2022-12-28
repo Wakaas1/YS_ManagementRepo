@@ -22,14 +22,14 @@
                 },
             }],
             columns: [
-                { data: "id"},
+                { data: "id" },
                 { data: "customerName" },
                 { data: "email" },
                 { data: "contactNumber" },
 
                 {
                     data: "id", "render": function (data, type, row) {
-                        return '<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"  href="" data-url="/Customer/AddOrEditCustomer?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Order/CreateOrder?id=' + data + '" > <i class="fa fa-info"></i></button>  <button href="#" class="btn btn-danger" onclick=DelCus("' + data + '")><i class="fa fa-trash"></i></button>'
+                        return '<button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"  href="" data-url="/Customer/AddOrEditCustomer?id=' + data + '" > <i class="fa fa-edit"></i></button>  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" href="" data-url="/Customer/DetailCustomer?id=' + data + '" > <i class="fa fa-info"></i></button>  <button href="#" class="btn btn-danger" onclick=DelCus("' + data + '")><i class="fa fa-trash"></i></button>'
                     },
                     "Width": "autowidth"
                 }
@@ -207,8 +207,7 @@ function DelCus(id) {
     });
 }
 
-
-//function DelLoc(id) {
+//function DelProduct(id) {
 //    if (confirm("Are you sure you want to delete ...?")) {
 //        Delete(id);
 //    } else {
@@ -216,11 +215,11 @@ function DelCus(id) {
 //    }
 //}
 //function Delete(id) {
-//    var url = '@Url.Content("~/")' + "Location/DeleteLocation";
+//    var url = '@Url.Content("~/")' + "Product/DeleteProduct";
 
 //    $.post(url, { ID: id }, function (data) {
 //        if (data) {
-//            oTable = $('#myTableLocation').DataTable();
+//            oTable = $('#myTableProduct').DataTable();
 //            oTable.draw();
 //        } else {
 //            alert("Something Went Wrong!");
